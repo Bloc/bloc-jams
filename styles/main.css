@@ -1,0 +1,27 @@
+html {
+  height:100%;
+  font-size: 100%;
+}
+
+body{
+  font-family:'Open Sans';
+  color:white;
+  min-height:100%;  /*says the height of the body must be, at minimum, 100% of the window*/  /*what does this mean when we resize the window?*/ 
+}
+
+
+body{
+  background-color:rgb(58,23,63);
+}
+
+
+
+.navbar {
+  padding: rem;
+  background-color:rgb(101,18,95);
+}
+
+ .navbar .logo {
+     position: relative;  positioning will be explained in a resource 
+     left: 2rem;
+ }
