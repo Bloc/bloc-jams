@@ -1,0 +1,57 @@
+body.landing {
+    background-color: rgb(58,23,63);
+}
+
+.hero-content{
+  position:relative;
+  min-height:600px;
+  background-image:url(../assets/images/bloc_jams_bg.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.hero-content .hero-title {
+  position:absolute;
+  top:40%;
+  
+/*  why is it that I have to delete all of them for it to undo transfomraiotn?*/
+  -webkit-transform: translateY(-50%); /*what's the point of having translateY???'*/
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  width:100%;
+  text-align: center;
+  text-transform:uppercase;
+  font-size: 4rem;
+  font-weight:300;
+  letter-spacing: 0.5rem;
+  text-shadow: 1px 1px 0px rgb(58,23,63);
+ }
+
+.selling-points{
+  position:relative; /*why?*/
+}
+
+.point{
+  position: relative;/*why?*/
+  text-align: center;
+  padding: 2rem;
+}
+
+.point .point-title{
+  font-size: 1.25rem;
+}
+
+.ion-music-note, .ion-radio-waves,.ion-iphone{
+  color: rgb(233,50,117);
+  font-size: 3.5rem;
+}
+
+/*"However, we don't want the padding to affect the width of the elements, so they will maintain a consistent ratio for both small and large screens." WHAT DOES THAT MEAN?* WHAT EXACTLY ARE THE PSEUDOELMENTS FOR?/
+*,*::before,*::after{
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; 
+}
+
+

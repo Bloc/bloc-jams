@@ -1,3 +1,9 @@
+*, *::before, *::after {
+     -moz-box-sizing: border-box;
+     -webkit-box-sizing: border-box;
+     box-sizing: border-box;
+ }
+
 html {
 height:100%;
 font-size: 100%;
@@ -8,12 +14,6 @@ font-family:'Open Sans';
 color:white;
 min-height:100%;  /*says the height of the body must be, at minimum, 100% of the window*/  /*what does this mean when we resize the window?*/ 
 }
-
-
-body{
-background-color:rgb(58,23,63);
-}
-
 
 .navbar {
 padding: 0.5rem;
@@ -26,54 +26,59 @@ left: 2rem;
 }
 
 
-.hero-content{
-  position:relative;
-  min-height:600px;
-  background-image:url(../assets/images/bloc_jams_bg.jpg);
-  background-repeat: no-repeat;
-  background-position: center center;
-}
+/*
+Recall that a root em is relative to the default browser font-size, which is 16 pixels in most browsers. 16 pixels is pretty small, particularly for high-resolution devices. Set the font-size above 100% of the default to make our text more legible on all devices: WHAT DOES THIS MEAN?
 
-.hero-content .hero-title {
-  position:absolute;
-  top:40%;
+
+Recall that a root em is relative to the default browser font-size, which is 16 pixels in most browsers. 16 pixels is pretty small, particularly for high-resolution devices. Set the font-size above 100% of the default to make our text more legible on all devices:WHAT DOES THIS MEAN?
+*/
+/* Medium screens (640px) */
+@media (min-width: 640px) {
+  html { font-size: 112%; }
   
-/*  why is it that I have to delete all of them for it to undo transfomraiotn?*/
-  -webkit-transform: translateY(-50%); /*what's the point of having translateY???'*/
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  width:100%;
-  text-align: center;
-  text-transform:uppercase;
-  font-size: 4rem;
-  font-weight:300;
-  letter-spacing: 0.5rem;
-  text-shadow: 1px 1px 0px rgb(58,23,63);
+  .column{
+    float: left;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .column.full{width:100%;}
+  .column.two-thirds{width:66.7%;}
+  .column.half{width:50%;}
+  .column.third{width:33.3%;}
+  .column.fourth{width:25%;}
+  .column.flow-opposite{float:right;}
+
  }
 
-.selling-points{
-  position:relative; /*why?*/
-  display:table;
-  width:100%;
+ /* Large screens (1024px) */
+ @media (min-width: 1024px) {
+     html { font-size: 120%; }
+ }
+
+.container{
+  max-width: 64rem;
+  margin: 0 auto;
 }
 
-.point{
-  position: relative;/*why?*/
-  display: table-cell;
-  width:33.3%;
-  text-align: center;
-  padding: 2rem;
+.clearfix::before,
+.clearfix::after {
+   content: " ";
+   display: table;
 }
 
-.point .point-title{
-  font-size: 1.25rem;
+.clearfix::after {
+   clear: both;
 }
 
-.ion-music-note, .ion-radio-waves,.ion-iphone{
-  color: rgb(233,50,117);
-  font-size: 3.5rem;
-}
+
+
+
+
+
+
+
+
 
 
 
