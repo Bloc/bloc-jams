@@ -17,14 +17,48 @@ min-height:100%;  /*says the height of the body must be, at minimum, 100% of the
 
 .navbar {
 padding: 0.5rem;
-background-color:rgb(101,18,95);
+background-color:rgba(101,18,95,0.5);
+  z-index:1;
 }
 
 .navbar .logo {
 position: relative; 
 left: 2rem;
+  cursor: pointer;
 }
 
+.navbar .links-container{
+  display:table;/*what does this line do?*/
+  position:absolute;
+  top:0;
+  right:0;
+  height: 100px;
+  color: white;
+  text-decoration:none;
+}
+
+/* how would we do this using absolute cnetering?*/
+.links-container .navbar-link{
+  display:table-cell; /*what does this do?*/
+  color:white;
+  font-size: 0.625rem;
+  position:relative; /*why make it realtive?*/
+  height:100%; /*what does this do?*/
+  padding-left: 1rem;
+  padding-right: 1rem;
+  
+  /*desciprinot*/
+  vertical-align: middle;
+  letter-spacing: 0.05rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.links-container .navbar-link:hover{
+  color: rgb(230, 47, 114);
+}
 
 /*
 Recall that a root em is relative to the default browser font-size, which is 16 pixels in most browsers. 16 pixels is pretty small, particularly for high-resolution devices. Set the font-size above 100% of the default to make our text more legible on all devices: WHAT DOES THIS MEAN?
