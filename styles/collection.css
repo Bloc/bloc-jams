@@ -4,7 +4,7 @@ body.collection{
   background-image: url(../assets/images/blurred_backgrounds/blur_bg_2.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position:  center;
+  background-position:  center center;
   background-size:cover;
 }
 
@@ -40,4 +40,10 @@ body.collection{
 
 .collection-album-container img{
   width:80%;
+}
+.navbar .links-container :active{
+  background-color: white;
+}
+.navbar .links-container .navbar-link:active{
+  color:rgb(233,50,117);
 }
