@@ -36,11 +36,12 @@ body.landing {
     position: relative;/*why?*/
     text-align: center;
     padding: 2rem;
-    opacity:0;
-    /*animate fade in*/
-    -webkit-transform: scaleX(0.9) translateY(3rem);
-       -moz-transform: scaleX(0.9) translateY(3rem);
-       transform: scaleX(0.9) translateY(3rem);
+    opacity:1.0;
+  
+    /*initial state*/
+    -webkit-transform: scale(0.9) translateY(3rem);
+       -moz-transform: scale(0.9) translateY(3rem);
+       transform: scale(0.9) translateY(3rem);
      -webkit-transition: all 0.25s ease-in-out;
       -moz-transition: all 0.25s ease-in-out;
       transition: all 0.25s ease-in-out;
@@ -57,6 +58,4 @@ body.landing {
   color: rgb(233,50,117);
   font-size: 3.5rem;
 }
-
-
 
