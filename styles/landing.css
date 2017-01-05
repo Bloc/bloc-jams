@@ -39,15 +39,24 @@ body.landing {
     opacity:1.0;
   
     /*initial state*/
+<<<<<<< HEAD
     -webkit-transform: scale(0.9) translateY(3rem);
        -moz-transform: scale(0.9) translateY(3rem);
        transform: scale(0.9) translateY(3rem);
+=======
+    -webkit-transform: scale(0.75) translateY(5rem);
+       -moz-transform: scale(0.75) translateY(5rem);
+       transform: scale(0.75) translateY(5rem);
+>>>>>>> 8-assignment
      -webkit-transition: all 0.25s ease-in-out;
       -moz-transition: all 0.25s ease-in-out;
       transition: all 0.25s ease-in-out;
     transition-delay: 0.2s;
     -moz-transition-delay: 0.2s;
     -webkit-transition-delay: 0.2s;
+  -webkit-transform: rotate(130deg);
+    transform: rotate(130deg);
+  opacity:0
 }
 
 .point .point-title{
@@ -59,3 +68,24 @@ body.landing {
   font-size: 3.5rem;
 }
 
+<<<<<<< HEAD
+=======
+.point:hover{
+    position: relative;/*why?*/
+    text-align: center;
+    padding: 2rem;  
+    /*final state*/
+  opacity: 1;
+    -webkit-transform: scaleX(1) translateY(0rem);
+       -moz-transform: scaleX(1) translateY(0rem);
+       transform: scaleX(1) translateY(0rem);
+     -webkit-transition: all 0.75s ease-in-out 0.5s;
+      -moz-transition: all 0.75s ease-in-out 0.5s;
+      transition: all 0.75s ease-in-out 0.5s;
+  -webkit-transform: rotate(-360deg);
+    transform: rotate(-360deg);
+}
+
+
+
+>>>>>>> 8-assignment
