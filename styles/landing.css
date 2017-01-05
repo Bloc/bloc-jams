@@ -36,17 +36,21 @@ body.landing {
     position: relative;/*why?*/
     text-align: center;
     padding: 2rem;
-    opacity:0;
-    /*animate fade in*/
-    -webkit-transform: scaleX(0.9) translateY(3rem);
-       -moz-transform: scaleX(0.9) translateY(3rem);
-       transform: scaleX(0.9) translateY(3rem);
+    opacity:1.0;
+  
+    /*initial state*/
+    -webkit-transform: scale(0.75) translateY(5rem);
+       -moz-transform: scale(0.75) translateY(5rem);
+       transform: scale(0.75) translateY(5rem);
      -webkit-transition: all 0.25s ease-in-out;
       -moz-transition: all 0.25s ease-in-out;
       transition: all 0.25s ease-in-out;
     transition-delay: 0.2s;
     -moz-transition-delay: 0.2s;
     -webkit-transition-delay: 0.2s;
+  -webkit-transform: rotate(130deg);
+    transform: rotate(130deg);
+  opacity:0
 }
 
 .point .point-title{
@@ -56,6 +60,22 @@ body.landing {
 .ion-music-note, .ion-radio-waves,.ion-iphone{
   color: rgb(233,50,117);
   font-size: 3.5rem;
+}
+
+.point:hover{
+    position: relative;/*why?*/
+    text-align: center;
+    padding: 2rem;  
+    /*final state*/
+  opacity: 1;
+    -webkit-transform: scaleX(1) translateY(0rem);
+       -moz-transform: scaleX(1) translateY(0rem);
+       transform: scaleX(1) translateY(0rem);
+     -webkit-transition: all 0.75s ease-in-out 0.5s;
+      -moz-transition: all 0.75s ease-in-out 0.5s;
+      transition: all 0.75s ease-in-out 0.5s;
+  -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
 }
 
 
