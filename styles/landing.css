@@ -33,9 +33,20 @@ body.landing {
 }
 
 .point{
-  position: relative;/*why?*/
-  text-align: center;
-  padding: 2rem;
+    position: relative;/*why?*/
+    text-align: center;
+    padding: 2rem;
+    opacity:0;
+    /*animate fade in*/
+    -webkit-transform: scaleX(0.9) translateY(3rem);
+       -moz-transform: scaleX(0.9) translateY(3rem);
+       transform: scaleX(0.9) translateY(3rem);
+     -webkit-transition: all 0.25s ease-in-out;
+      -moz-transition: all 0.25s ease-in-out;
+      transition: all 0.25s ease-in-out;
+    transition-delay: 0.2s;
+    -moz-transition-delay: 0.2s;
+    -webkit-transition-delay: 0.2s;
 }
 
 .point .point-title{
@@ -47,11 +58,5 @@ body.landing {
   font-size: 3.5rem;
 }
 
-/*"However, we don't want the padding to affect the width of the elements, so they will maintain a consistent ratio for both small and large screens." WHAT DOES THAT MEAN?* WHAT EXACTLY ARE THE PSEUDOELMENTS FOR?/
-*,*::before,*::after{
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box; 
-}
 
 
