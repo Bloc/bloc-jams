@@ -13,9 +13,7 @@ body.landing {
 .hero-content .hero-title {
   position:absolute;
   top:40%;
-  
-/*  why is it that I have to delete all of them for it to undo transfomraiotn?*/
-  -webkit-transform: translateY(-50%); /*what's the point of having translateY???'*/
+  -webkit-transform: translateY(-50%); 
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
@@ -36,27 +34,16 @@ body.landing {
     position: relative;/*why?*/
     text-align: center;
     padding: 2rem;
-    opacity:1.0;
-  
-    /*initial state*/
-<<<<<<< HEAD
-    -webkit-transform: scale(0.9) translateY(3rem);
-       -moz-transform: scale(0.9) translateY(3rem);
-       transform: scale(0.9) translateY(3rem);
-=======
-    -webkit-transform: scale(0.75) translateY(5rem);
-       -moz-transform: scale(0.75) translateY(5rem);
-       transform: scale(0.75) translateY(5rem);
->>>>>>> 8-assignment
-     -webkit-transition: all 0.25s ease-in-out;
-      -moz-transition: all 0.25s ease-in-out;
-      transition: all 0.25s ease-in-out;
+    opacity:0;
+    -webkit-transform: scaleX(0.9) translateY(3rem);
+    -moz-transform: scaleX(0.9) translateY(3rem);
+    transform: scaleX(0.9) translateY(3rem);
+    transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
     transition-delay: 0.2s;
     -moz-transition-delay: 0.2s;
     -webkit-transition-delay: 0.2s;
-  -webkit-transform: rotate(130deg);
-    transform: rotate(130deg);
-  opacity:0
 }
 
 .point .point-title{
@@ -68,24 +55,6 @@ body.landing {
   font-size: 3.5rem;
 }
 
-<<<<<<< HEAD
-=======
-.point:hover{
-    position: relative;/*why?*/
-    text-align: center;
-    padding: 2rem;  
-    /*final state*/
-  opacity: 1;
-    -webkit-transform: scaleX(1) translateY(0rem);
-       -moz-transform: scaleX(1) translateY(0rem);
-       transform: scaleX(1) translateY(0rem);
-     -webkit-transition: all 0.75s ease-in-out 0.5s;
-      -moz-transition: all 0.75s ease-in-out 0.5s;
-      transition: all 0.75s ease-in-out 0.5s;
-  -webkit-transform: rotate(-360deg);
-    transform: rotate(-360deg);
-}
 
 
 
->>>>>>> 8-assignment
