@@ -60,18 +60,12 @@ left: 2rem;
   color: rgb(230, 47, 114);
 }
 
-/*
-Recall that a root em is relative to the default browser font-size, which is 16 pixels in most browsers. 16 pixels is pretty small, particularly for high-resolution devices. Set the font-size above 100% of the default to make our text more legible on all devices: WHAT DOES THIS MEAN?
-
-
-Recall that a root em is relative to the default browser font-size, which is 16 pixels in most browsers. 16 pixels is pretty small, particularly for high-resolution devices. Set the font-size above 100% of the default to make our text more legible on all devices:WHAT DOES THIS MEAN?
-*/
 /* Medium screens (640px) */
 @media (min-width: 640px) {
   html { font-size: 112%; }
   
   .column{
-    float: left;
+    float:left;
     padding-left: 1rem;
     padding-right: 1rem;
   }
@@ -91,8 +85,8 @@ Recall that a root em is relative to the default browser font-size, which is 16 
  }
 
 .container{
-  max-width: 64rem;
   margin: 0 auto;
+  max-width: 64rem;
 }
 
 .clearfix::before,
@@ -105,6 +99,10 @@ Recall that a root em is relative to the default browser font-size, which is 16 
    clear: both;
 }
 
+/*why is it that this brings text content to the right of photo*/
+.container.narrow{
+  max-wdith: 56rem;
+}
 
 
 
