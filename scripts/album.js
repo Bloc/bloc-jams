@@ -78,17 +78,19 @@
          albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
      }
  };
- 
+
+ var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
+
+
+
  window.onload = function() {   
    setCurrentAlbum(albumPicasso);
   
-   var albums = [albumPicasso,albumMarconi,albumGEM];  
-   var index = 0;
-    
-   albumImage.addEventListener("click",function(event){
-      setCurrentAlbum(albums[(index+4)%3]);
-     i++;
-   }); 
- };
-
-  
+   songListContainer.addEventListener('mouseover', function(event){
+     
+     //EVENT BUBBLING:
+      //The target property on the event object stores the DOM element where the event occurred.
+     console.log(event.target);
+   });
+ }
+ 
