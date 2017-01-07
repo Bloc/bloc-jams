@@ -1,31 +1,19 @@
   var pointsArray = document.getElementsByClassName('point');
 
-/*var animatePoints = function(points){
-  
-  function revealPoint(index){
-    points[index].style.opacity = 1;
-    points[index].style.transform = "scaleX(1) translateY(0)"; 
-    points[index].style.msTransform = "scaleX(1) translateY(0)"; 
-    points[index].style.WebkitTransform = "scaleX(1) translateY(0)";
+var animatePoints = function(points){
+
+  function revealPoint(point){
+    point.style.opacity = 1;
+    point.style.transform = "scaleX(1) translateY(0)"; 
+    point.style.msTransform = "scaleX(1) translateY(0)"; 
+    point.style.WebkitTransform = "scaleX(1) translateY(0)";
   }
   
-  forEach(points,revealPoint);
+  forEach(points,revealPoint); //this is passing in the point
 
-};*/
+}
 
 /*WHY DOESN'T THE ABOVE WORK? COULD NOT ANIMATE HMM....*/
-
-var animatePoints = function(points){
-  forEach(points,revealPoint);
-}
-
-function revealPoint(index){
-    points[index].style.opacity = 1;
-    points[index].style.transform = "scaleX(1) translateY(0)"; 
-    points[index].style.msTransform = "scaleX(1) translateY(0)"; 
-    points[index].style.WebkitTransform = "scaleX(1) translateY(0)";
-}
-
 
 
 window.onload = function() {
