@@ -82,7 +82,6 @@
  var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 
 
-
  window.onload = function() {   
    setCurrentAlbum(albumPicasso);
   
@@ -90,7 +89,9 @@
      
      //EVENT BUBBLING:
       //The target property on the event object stores the DOM element where the event occurred.
-     console.log(event.target);
+              if (event.target.parentElement.className === 'album-view-song-item') {
+             // Change the content from the number to the play button's HTML
+         }
    });
  }
  
