@@ -46,7 +46,8 @@
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
-      + '  <td class="song-item-number">' + songNumber + '</td>'
+     //add song number data to the element
+      + '  <td class="song-item-number" data-song-number="' + songNumber+ '" >' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
       + '  <td class="song-item-duration">' + songLength + '</td>'
       + '</tr>'
@@ -79,9 +80,13 @@
      }
  };
 
- var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 
+var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 
+var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
+
+/*get node list of song rows*/
+var songRows = document.getElementsByClassName('album-view-song-item');
  window.onload = function() {   
    setCurrentAlbum(albumPicasso);
   
@@ -90,8 +95,22 @@
      //EVENT BUBBLING:
       //The target property on the event object stores the DOM element where the event occurred.
               if (event.target.parentElement.className === 'album-view-song-item') {
-             // Change the content from the number to the play button's HTML
+                
+                // Change the content from the number to the play button's HTML
+                event.target.parentElement.querySelector('.song-item-number').innerHTML = playButtonTemplate;
          }
    });
+   //add event listeners to each songrow to change back buttonto number.
+   for(var i=0; i<songRows.length;i++){
+     songRows[i].addEventListener('mouseleave',function(event){
+       
+       // Selects first child element, which is the song-item-number
+       this.children[0].innerHTML = this.children[0].getAttribute('data-song-number');
+       
+     });
+   }
  }
+ 
+ 
+ 
  
