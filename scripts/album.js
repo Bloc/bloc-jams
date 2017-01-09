@@ -178,31 +178,22 @@ var clickHandler = function(targetElement) {
   }
  };
 
-  function findParentByClassName(element, targetClass){ 
+  
+ function findParentByClassName(element, targetClass){ 
+    var parent = element.parentElement;
      if (element){
-        var parent = element.parentElement;
+       if(parent){
      /*if the current node is not of the desired class and has a parentNode*/
        while(parent.className !== targetClass){
+          if(parent === null)
+              alert("No parent found with that class name.");
           parent = parent.parentElement; //set current child to the current parent.
        }
-      return parent;
-     }  
+       }     
+       alert("No parent found.");
+     }
+  
+    return null;
+          
   }
-
  
-
- 
- 
-// //FIGURE OUT HOW TO CHECK IF THE BUTOTN HAS NO TARGET CLASSED PARENT.
-//var findParentByClassName = function(element, targetClass) {
-//    if (element) {
-//        var currentParent = element.parentElement;
-//        while (currentParent.className != targetClass && currentParent.className !== null) {//WHY  CHECK FOR NULL CLASSNAME?
-//            currentParent = currentParent.parentElement;
-//        }
-//        return currentParent;
-//    }
-//};
-//
-//
-// 
