@@ -18,7 +18,7 @@
      artist: 'Guglielmo Marconi',
      label: 'EM',
      year: '1909',
-     albumArtUrl: 'assets/images/album_covers/20.png',
+     albumArtUrl: 'assets/images/album_covers/02.png',
      songs: [
          { title: 'Hello, Operator?', duration: '1:01' },
          { title: 'Ring, ring, ring', duration: '5:01' },
@@ -33,7 +33,7 @@
      artist: 'G.E.M.',
      label: 'HummingBird',
      year: '2015',
-     albumArtUrl: 'assets/images/album_covers/GEMALBUM.png',
+     albumArtUrl: 'assets/images/album_covers/GEMalbum.jpg',
      songs: [
          { title: 'Heartbeat', duration: '5:56' },
          { title: 'Green', duration: '3:14' },
@@ -55,6 +55,8 @@
      return template;
  };
 
+
+
 //creates an album with its song list
  var setCurrentAlbum = function(album){
    
@@ -62,7 +64,6 @@
    var albumTitle = document.getElementsByClassName('album-view-title')[0];
    var albumArtist = document.getElementsByClassName('album-view-artist')[0];
    var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-   var albumImage = document.getElementsByClassName('album-cover-art')[0];
    var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
    
      // #2 set album info
@@ -81,22 +82,19 @@
  
  };
 
-undefinedfd
-f
-DocumentFragmentd
-falsedf
-d
-
  window.onload = function() {
-
-  setCurrentAlbum(albumGEM);
+   
+   /*albumImage does not exist yet*/
+  var albumImage = document.getElementsByClassName('album-cover-art')[0];
+  
+   setCurrentAlbum(albumGEM);
   
   var albums = [albumGEM,albumMarconi,albumPicasso];  
   var index = 0;
    
   albumImage.addEventListener("click",function(event){
      setCurrentAlbum(albums[(index+4)%3]);
-    i++;
+    index++;
   }); 
 }
 
