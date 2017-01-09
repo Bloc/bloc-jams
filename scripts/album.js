@@ -178,17 +178,16 @@ var clickHandler = function(targetElement) {
   }
  };
 
-  
+  //this may not be right..........
  function findParentByClassName(element, targetClass){ 
     var parent = element.parentElement;
      if (element){
        if(parent){
-     /*if the current node is not of the desired class and has a parentNode*/
        while(parent.className !== targetClass){
           if(parent === null)
               alert("No parent found with that class name.");
-          parent = parent.parentElement; //set current child to the current parent.
-       }
+          parent = parent.parentElement; 
+        }
        }     
        alert("No parent found.");
      }
