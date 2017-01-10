@@ -57,6 +57,11 @@
 
 
 
+
+ window.onload = function() {
+  
+   var albumImage = document.getElementsByClassName('album-cover-art')[0];
+
 //creates an album with its song list
  var setCurrentAlbum = function(album){
    
@@ -81,12 +86,7 @@
    } 
  
  };
-
- window.onload = function() {
-   
-   /*albumImage does not exist yet*/
-  var albumImage = document.getElementsByClassName('album-cover-art')[0];
-  
+   /*albumImage does not exist yet*/  
    setCurrentAlbum(albumGEM);
   
   var albums = [albumGEM,albumMarconi,albumPicasso];  
