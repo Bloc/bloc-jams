@@ -1,0 +1,51 @@
+.player-bar{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background-color: rgba(255,255,255,0.3);
+  z-index: 100;
+}
+
+.player-bar a, .player-bar a: hover{
+  color:white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.player-bar .container{
+  display:table;
+  padding:0;
+  wdith: 90%;
+  min-height: 100%;
+}
+
+.player-bar .control-group{
+  display: table-cell;
+  vertical-align: center;
+}
+
+.player-bar .main-controls{
+   width: 25%;
+  text-align: left;
+  padding-right 1rem;
+}
+
+
+.player-bar .main-controls{
+  width: 25%;
+  text-align: left;
+  padding-right: 1rem;
+}
+
+.player-bar .currently-playing{
+  width: 50%;
+  text-align: center; //WHY IS THIS SO IMPORTANT. 
+  position: relative;
+}
+
+.player-bar .volume{
+  width: 25%;
+  text-align: right;  
+}
