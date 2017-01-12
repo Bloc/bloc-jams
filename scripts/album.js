@@ -33,7 +33,7 @@
      artist: 'G.E.M.',
      label: 'HummingBird',
      year: '2015',
-     albumArtUrl: 'assets/images/album_covers/GEMALBUM.png',
+     albumArtUrl: 'assets/images/album_covers/GEMalbum.jpg',
     songs: [
          { title: 'Heartbeat', duration: '5:56' },
          { title: 'Green', duration: '3:14' },
@@ -91,7 +91,7 @@ var songRows = document.getElementsByClassName('album-view-song-item');
 
 
 window.onload = function(){   
-   setCurrentAlbum(albumPicasso);
+   setCurrentAlbum(albumGEM);
    
     /*iterate through the parent nodes of the element*/
      /*check classnames and return the node that has that classname*/
