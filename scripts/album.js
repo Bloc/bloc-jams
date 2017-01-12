@@ -96,7 +96,6 @@ window.onload = function(){
     /*iterate through the parent nodes of the element*/
      /*check classnames and return the node that has that classname*/
    songListContainer.addEventListener('mouseover', function(event){
-     
      //EVENT BUBBLING:
       //The target property on the event object stores the DOM element where the event occurred.
      var songItem = getSongItem(event.target);
@@ -118,9 +117,10 @@ window.onload = function(){
        // get songnumber node and get the songNumber
        var songItem = getSongItem(event.target);
        var songNumber = songItem.getAttribute('data-song-number');
-       
+      
+
        /*only change back to number if it is not the currentlyPlayingSong*/
-       if(songNumber !== currentlyPlayingSong);
+       if(songNumber !== currentlyPlayingSong)
           songItem.innerHTML = songNumber;
      });
      

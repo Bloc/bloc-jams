@@ -97,6 +97,8 @@ body.album{
  }
 
 
+
+
  .song-item-number {
      width: 5%;
      min-width: 30px; //force the width, to keep it from shrinking when shrinking window
