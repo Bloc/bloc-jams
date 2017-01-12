@@ -20,6 +20,10 @@
   cursor: pointer;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 .player-bar .container{
   display:table;
   padding:100;
@@ -39,7 +43,15 @@
 }
 
 .player-bar .main-controls .previous{
+<<<<<<< HEAD
   margin-right: 20.5%;
+=======
+  margin-right: 16.5%;
+}
+
+.player-bar .main-controls .play-pause{
+  margin-right: 15%;
+>>>>>>> master
 }
 
 .player-bar .currently-playing{
@@ -53,3 +65,8 @@
   text-align: right;  
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> master

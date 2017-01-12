@@ -15,9 +15,6 @@ var animatePoints = function(points){
 
 };
 
-
-
-
 window.onload = function() {
   if (window.innerHeight > 950){
    animatePoints(pointsArray);
