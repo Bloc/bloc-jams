@@ -54,10 +54,10 @@
       ;
    
    //add event listeners to template just right after it is created.
-    var $row = $(template);
+     var $row = $(template);
     
     var onHover = function(event) {
-      var $songItem = $(this).find('song-item-number');
+      var $songItem = $(this).find('.song-item-number');
       var songNumber = $songItem.attr('data-song-number');
 
       
@@ -67,7 +67,7 @@
      };
    
      var offHover = function(event) {
-      var $songItem = $(this).find('song-item-number');
+      var $songItem = $(this).find('.song-item-number');
       var songNumber = $songItem.attr('data-song-number');
        
           if (songNumber !== currentlyPlayingSong) {
@@ -75,9 +75,26 @@
           }
      };
    
-
+   var clickHandler = function() {
+     var songNumber = $(this).attr('data-song-number');
+ 
+     if (currentlyPlayingSong === null) {
+         $(this).html(pauseButtonTemplate);
+         currentlyPlayingSong = songNumber;
+     } else if (currentlyPlayingSong === songNumber) {
+         $(this).html(playButtonTemplate);
+         currentlyPlayingSong = null;
+     } else if (currentlyPlayingSong !== songNumber) {
+         var currentlyPlayingSongElement = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
+         currentlyPlayingSongElement.html(songNumber);
+         $(this).html(pauseButtonTemplate);
+         currentlyPlayingSong = songNumber;
+     }
+ };
+   
+     $row.find('.song-item-number').click(clickHandler); //get song-item-number
      $row.hover(onHover, offHover);
-     
+
    return $row;
  };
 
