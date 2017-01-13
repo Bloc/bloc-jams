@@ -76,23 +76,24 @@
      };
    
    var clickHandler = function() {
-     var songNumber = $(this).attr('data-song-number');
+     var $songItem = $(this).find('.song-item-number');
+     var songNumber = $songItem.attr('data-song-number');
  
      if (currentlyPlayingSong === null) {
-         $(this).html(pauseButtonTemplate);
+         $songItem.html(pauseButtonTemplate);
          currentlyPlayingSong = songNumber;
      } else if (currentlyPlayingSong === songNumber) {
-         $(this).html(playButtonTemplate);
+         $songItem.html(playButtonTemplate);
          currentlyPlayingSong = null;
      } else if (currentlyPlayingSong !== songNumber) {
          var currentlyPlayingSongElement = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
          currentlyPlayingSongElement.html(songNumber);
-         $(this).html(pauseButtonTemplate);
+         $songItem.html(pauseButtonTemplate);
          currentlyPlayingSong = songNumber;
      }
  };
    
-     $row.find('.song-item-number').click(clickHandler); //get song-item-number
+     $row.click(clickHandler); //get song-item-number
      $row.hover(onHover, offHover);
 
    return $row;
