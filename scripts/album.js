@@ -52,8 +52,33 @@
       + '  <td class="song-item-duration">' + songLength + '</td>'
       + '</tr>'
       ;
- 
-     return $(template);
+   
+   //add event listeners to template just right after it is created.
+    var $row = $(template);
+    
+    var onHover = function(event) {
+      var $songItem = $(this).find('song-item-number');
+      var songNumber = $songItem.attr('data-song-number');
+
+      
+          if (songNumber !== currentlyPlayingSong) {
+            $songItem.html(playButtonTemplate);
+          }
+     };
+   
+     var offHover = function(event) {
+      var $songItem = $(this).find('song-item-number');
+      var songNumber = $songItem.attr('data-song-number');
+       
+          if (songNumber !== currentlyPlayingSong) {
+            $songItem.html(songNumber);
+          }
+     };
+   
+
+     $row.hover(onHover, offHover);
+     
+   return $row;
  };
 
 
@@ -80,61 +105,8 @@
      }
  };
 
- function findParentByClassName(element, targetClass){ 
-     if (element){
-        var parent = element.parentElement;
-     /*if the current node is not of the desired class and has a parentNode*/
-       while(parent.className !== targetClass){
-          parent = parent.parentElement; //set current child to the current parent.
-       }
-      return parent;
-     }  
-  }
 
-var getSongItem = function(element) {
-    switch (element.className) {
-        case 'album-song-button':
-        /* why do nothing here?*/
-        case 'ion-play':
-        case 'ion-pause':
-            return findParentByClassName(element, 'song-item-number');
-        case 'album-view-song-item':
-            return element.querySelector('.song-item-number');
-        case 'song-item-title':
-        case 'song-item-duration':
-            return findParentByClassName(element, 'album-view-song-item').querySelector('.song-item-number');
-        case 'song-item-number':
-            return element;
-        default:
-            return;
-    }  
-}
 
-var clickHandler = function(targetElement) {
-  
-  //GET THE SONG NUMBER ITEM OF THE ROW THAT THE CLICKED ELEMENT IS IN
-    var songItem = getSongItem(targetElement);  
-  
-  /*if song is not playing*/
-  if(currentlyPlayingSong === null){
-    songItem.innerHTML = pauseButtonTemplate;
-    currentlyPlayingSong = songItem.getAttribute('data-song-number'); 
-  }
-  /*if song is already playing, pause it */
-  else if(songItem.getAttribute('data-song-number') === currentlyPlayingSong){
-    songItem.innerHTML = playButtonTemplate;
-    currentlyPlayingSong = null;
-  }
-  
-  else if(songItem.getAttribute('data-song-number') !== currentlyPlayingSong){
-    
-    var currentlyPlayingSongElement = document.querySelector('[data-song-number="' + currentlyPlayingSong + '"]')
-    currentlyPlayingSongElement.innerHTML = currentlyPlayingSongElement.getAttribute('data-song-number');
-    songItem.innerHTML = pauseButtonTemplate;
-    currentlyPlayingSong = songItem.getAttribute('data-song-number'); 
-
-  }
- };
 
 
 //THE BUTTON ICONS
@@ -142,51 +114,10 @@ var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
 
 var currentlyPlayingSong = null;
-var songListContainer = document.getElementsByClassName('album-view-song-list')[0];
-/*get node list of song rows*/
-var songRows = document.getElementsByClassName('album-view-song-item');
 
-
-window.onload = function(){   
+$(document).ready(function(){   
    setCurrentAlbum(albumGEM);
-   
-    /*iterate through the parent nodes of the element*/
-     /*check classnames and return the node that has that classname*/
-   songListContainer.addEventListener('mouseover', function(event){
-     //EVENT BUBBLING:
-      //The target property on the event object stores the DOM element where the event occurred.
-     var songItem = getSongItem(event.target);
-     var songNumber = songItem.getAttribute('data-song-number');
-     
-     //what's the point of checking if the parent class is album-view-song-item?
-              if (event.target.parentElement.className === 'album-view-song-item' &&  songNumber !== currentlyPlayingSong) {
-                // Change the content from the number to the play button's HTML
-                songItem.innerHTML = playButtonTemplate;
-         }
-   });
-  
-   //add event listeners to each songrow to change back buttonto number.
-   for(var i=0; i<songRows.length;i++){
-     
-     //WHY CAN'T WE JUST USE EVENT BUBBLING FOR THIS?   
-     songRows[i].addEventListener('mouseleave',function(event){
-       
-       // get songnumber node and get the songNumber
-       var songItem = getSongItem(event.target);
-       var songNumber = songItem.getAttribute('data-song-number');
-      
-
-       /*only change back to number if it is not the currentlyPlayingSong*/
-       if(songNumber !== currentlyPlayingSong)
-          songItem.innerHTML = songNumber;
-     });
-     
-     songRows[i].addEventListener('click', function(event) {
-             // Event handler call
-             clickHandler(event.target);
-         });
-   }
- };
+ });
  
 
  
