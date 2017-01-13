@@ -80,6 +80,63 @@
      }
  };
 
+ function findParentByClassName(element, targetClass){ 
+     if (element){
+        var parent = element.parentElement;
+     /*if the current node is not of the desired class and has a parentNode*/
+       while(parent.className !== targetClass){
+          parent = parent.parentElement; //set current child to the current parent.
+       }
+      return parent;
+     }  
+  }
+
+var getSongItem = function(element) {
+    switch (element.className) {
+        case 'album-song-button':
+        /* why do nothing here?*/
+        case 'ion-play':
+        case 'ion-pause':
+            return findParentByClassName(element, 'song-item-number');
+        case 'album-view-song-item':
+            return element.querySelector('.song-item-number');
+        case 'song-item-title':
+        case 'song-item-duration':
+            return findParentByClassName(element, 'album-view-song-item').querySelector('.song-item-number');
+        case 'song-item-number':
+            return element;
+        default:
+            return;
+    }  
+}
+
+var clickHandler = function(targetElement) {
+  
+  //GET THE SONG NUMBER ITEM OF THE ROW THAT THE CLICKED ELEMENT IS IN
+    var songItem = getSongItem(targetElement);  
+  
+  /*if song is not playing*/
+  if(currentlyPlayingSong === null){
+    songItem.innerHTML = pauseButtonTemplate;
+    currentlyPlayingSong = songItem.getAttribute('data-song-number'); 
+  }
+  /*if song is already playing, pause it */
+  else if(songItem.getAttribute('data-song-number') === currentlyPlayingSong){
+    songItem.innerHTML = playButtonTemplate;
+    currentlyPlayingSong = null;
+  }
+  
+  else if(songItem.getAttribute('data-song-number') !== currentlyPlayingSong){
+    
+    var currentlyPlayingSongElement = document.querySelector('[data-song-number="' + currentlyPlayingSong + '"]')
+    currentlyPlayingSongElement.innerHTML = currentlyPlayingSongElement.getAttribute('data-song-number');
+    songItem.innerHTML = pauseButtonTemplate;
+    currentlyPlayingSong = songItem.getAttribute('data-song-number'); 
+
+  }
+ };
+
+
 //THE BUTTON ICONS
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
@@ -129,65 +186,8 @@ window.onload = function(){
              clickHandler(event.target);
          });
    }
- }
-
-var getSongItem = function(element) {
-    switch (element.className) {
-        case 'album-song-button':
-        /* why do nothing here?*/
-        case 'ion-play':
-        case 'ion-pause':
-            return findParentByClassName(element, 'song-item-number');
-        case 'album-view-song-item':
-            return element.querySelector('.song-item-number');
-        case 'song-item-title':
-        case 'song-item-duration':
-            return findParentByClassName(element, 'album-view-song-item').querySelector('.song-item-number');
-        case 'song-item-number':
-            return element;
-        default:
-            return;
-    }  
-};
-
-
-
-var clickHandler = function(targetElement) {
-  
-  //GET THE SONG NUMBER ITEM OF THE ROW THAT THE CLICKED ELEMENT IS IN
-    var songItem = getSongItem(targetElement);  
-  
-  /*if song is not playing*/
-  if(currentlyPlayingSong === null){
-    songItem.innerHTML = pauseButtonTemplate;
-    currentlyPlayingSong = songItem.getAttribute('data-song-number'); 
-  }
-  /*if song is already playing, pause it */
-  else if(songItem.getAttribute('data-song-number') === currentlyPlayingSong){
-    songItem.innerHTML = playButtonTemplate;
-    currentlyPlayingSong = null;
-  }
-  
-  else if(songItem.getAttribute('data-song-number') !== currentlyPlayingSong){
-    
-    var currentlyPlayingSongElement = document.querySelector('[data-song-number="' + currentlyPlayingSong + '"]')
-    currentlyPlayingSongElement.innerHTML = currentlyPlayingSongElement.getAttribute('data-song-number');
-    songItem.innerHTML = pauseButtonTemplate;
-    currentlyPlayingSong = songItem.getAttribute('data-song-number'); 
-
-  }
  };
-
-  function findParentByClassName(element, targetClass){ 
-     if (element){
-        var parent = element.parentElement;
-     /*if the current node is not of the desired class and has a parentNode*/
-       while(parent.className !== targetClass){
-          parent = parent.parentElement; //set current child to the current parent.
-       }
-      return parent;
-     }  
-  }
+ 
 
  
 
