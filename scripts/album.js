@@ -11,19 +11,29 @@ var createSongRow = function(songNumber, songName, songLength) {
    //add event listeners to template just right after it is created.
      var $row = $(template);
     
+  
+//  Why we need to parseInt - becasue of how strictComparison's works: it checks types
+  
+  ///first Hover - currentlyPlayingSong is an object (null);
+  ///click handler - currentlyplayingSong is a string ( here currentlyPLayingSong  is set by songNumber(which is obtained by .attr --> string type).
+  ///nextSong() = curretnlypLyaingSong is a number 
+  ///strings and nuumbers dont' match, thus it will always change offhover
+  
+  //Solution: by changing all songNumbers to in a number, we change all instances of currentPlayingSong also to number
+
+  
     var onHover = function(event) {
       var $songItem = $(this).find('.song-item-number');
-      var songNumber = $songItem.attr('data-song-number');
-
+      var songNumber = parseInt($songItem.attr('data-song-number'));
       
-          if (songNumber !== currentlyPlayingSong) {
+          if (songNumber !== currentlyPlayingSong) { ////not same type.
             $songItem.html(playButtonTemplate);
           }
      };
    
      var offHover = function(event) {
       var $songItem = $(this).find('.song-item-number');
-      var songNumber = $songItem.attr('data-song-number');
+      var songNumber = parseInt($songItem.attr('data-song-number'));
        
           if (songNumber !== currentlyPlayingSong) {
             $songItem.html(songNumber);
@@ -35,7 +45,7 @@ var createSongRow = function(songNumber, songName, songLength) {
    
    var clickHandler = function() {
      var $songItem = $(this).find('.song-item-number');
-     var songNumber = $songItem.attr('data-song-number');
+     var songNumber = parseInt($songItem.attr('data-song-number'));
  
      if (currentlyPlayingSong === null) {
          $songItem.html(pauseButtonTemplate);
@@ -132,7 +142,7 @@ function nextSong(){
     currentAlbumSong = currentAlbum.songs[0];
   }
   else{
-    currentlyPlayingSong++;
+    currentlyPlayingSong++;/////does this line convert it to number?
     currentAlbumSong = currentAlbum.songs[currentlyPlayingSong - 1]; // could replace currentlyPlayingSong  with trackIndex(currentAlbum, currentAlbumSong)
   }
     
