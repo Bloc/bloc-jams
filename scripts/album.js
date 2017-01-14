@@ -124,46 +124,26 @@ $(document).ready(function(){
   $('.main-controls .play-pause').html(playerBarPauseButton);
 }
 
-
+//LOLS you don't need trackIndex.
 function nextSong(){
 
   //NODES OF CURRENT SONGITME AN  IT'S NUMBER.
   var $currentSongItem = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
-  var currentSongNumber = currentlyPlayingSong;
-  $currentSongItem.html(currentSongNumber);//set current songitemnumber back to its songnumber
-  var newSongNumber;
+  $currentSongItem.html(currentlyPlayingSong);
   
-  if (currentSongNumber >= currentAlbum.songs.length){
-    newSongNumber = 1;
+  if (currentlyPlayingSong >= currentAlbum.songs.length){
+    currentlyPlayingSong = 1;
     currentAlbumSong = currentAlbum.songs[0];
   }
   else{
-    newSongNumber++;
-    currentAlbumSong = currentAlbum.songs[newSongNumber - 1];
+    currentlyPlayingSong++;
+    currentAlbumSong = currentAlbum.songs[currentlyPlayingSong - 1]; // could replace currentlyPlayingSong  with trackIndex(currentAlbum, currentAlbumSong)
   }
     
-  var $newSongNumberItem = $(document).find('[data-song-number="' + newSongNumber + '"]');
+  var $newSongNumberItem = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
   $newSongNumberItem.html(pauseButtonTemplate);
   updatePlayerBarSong(); //updates the player to display a song and gives the player a pause button
 }
-
-
-function nextSong(){
-  
-  //have variable taht stores the current song to change it back to its songNumber. if last, wrap
-  //set currentlyPlayingSong to  trackIndex(currentAlbum, currentSong) + 1 - done in order to updatePlayerBarSong() with new song info, and set the playersongBar to that info
-  //change the newsongNumberItem using find() to pausebutton. 
-  //
-  
-}
-
-//Know what the previous song is. This includes the situation in which the next song is the first song, following the final song in the album (that is, it should "wrap" around).
-//Use the trackIndex() helper function to get the index of the current song and then increment the value of the index.
-//Set a new current song to currentSongFromAlbum.
-//Update the player bar to show the new song.
-//Update the HTML of the previous song's .song-item-number element with a number.
-//Update the HTML of the new song's .song-item-number element with a pause button.
-
  
 
  
