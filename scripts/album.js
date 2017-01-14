@@ -105,10 +105,6 @@ var currentAlbumSong = null;
 var currentAlbum = null;
 
 
-$(document).ready(function(){   
-   setCurrentAlbum(albumGEM);
-    $nextButton.click(nextSong);
- });
 
   var trackIndex = function(album, song) {
      return album.songs.indexOf(song);
@@ -144,7 +140,34 @@ function nextSong(){
   $newSongNumberItem.html(pauseButtonTemplate);
   updatePlayerBarSong(); //updates the player to display a song and gives the player a pause button
 }
+
+function previousSong(){
+
+  //NODES OF CURRENT SONGITME AN  IT'S NUMBER.
+  var $currentSongItem = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
+  $currentSongItem.html(currentlyPlayingSong);
+  
+  if (currentlyPlayingSong <= 1){
+    currentlyPlayingSong = currentAlbum.songs.length;
+    currentAlbumSong = currentAlbum.songs[currentAlbum.songs.length];
+  }
+  else{
+    currentlyPlayingSong--;
+    currentAlbumSong = currentAlbum.songs[currentlyPlayingSong - 1]; // could replace currentlyPlayingSong  with trackIndex(currentAlbum, currentAlbumSong)
+  }
+    
+  var $newSongNumberItem = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
+  $newSongNumberItem.html(pauseButtonTemplate);
+  updatePlayerBarSong(); //updates the player to display a song and gives the player a pause button
+}
  
+
+ $(document).ready(function(){   
+   setCurrentAlbum(albumGEM);
+    $nextButton.click(nextSong);
+    $previousButton.click(previousSong);
+ });
+
 
  
  
