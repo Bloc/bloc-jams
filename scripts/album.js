@@ -30,13 +30,7 @@ var createSongRow = function(songNumber, songName, songLength) {
           }
      };
   
-  function updatePlayerBarSong(){
-  $('.currently-playing .song-name').text(currentAlbumSong.title);
-  $('.currently-playing .artist-name').text(currentAlbum.artist);
-  $('.currently-playing .artist-song-mobile').text(currentAlbumSong.title + " - " + currentAlbum.artist);
-  
-  $('.main-controls .play-pause').html(playerBarPauseButton);
-}
+ 
 
    
    var clickHandler = function() {
@@ -103,37 +97,65 @@ var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></
 var pauseButtonTemplate = '<a class="album-song-button"><span class="ion-pause"></span></a>';
 var playerBarPauseButton = '<span class="ion-pause"></span>';
 var playerBarPlayButton = '<span class="ion-play"></span>';
+var $previousButton = $('.main-controls .previous');
+var $nextButton = $('.main-controls .next');
 
 var currentlyPlayingSong = null;
 var currentAlbumSong = null;
 var currentAlbum = null;
 
+
 $(document).ready(function(){   
    setCurrentAlbum(albumGEM);
+    $nextButton.click(nextSong);
  });
 
   var trackIndex = function(album, song) {
      return album.songs.indexOf(song);
  };
 
+
+
+ function updatePlayerBarSong(){
+  $('.currently-playing .song-name').text(currentAlbumSong.title);
+  $('.currently-playing .artist-name').text(currentAlbum.artist);
+  $('.currently-playing .artist-song-mobile').text(currentAlbumSong.title + " - " + currentAlbum.artist);
+  
+  $('.main-controls .play-pause').html(playerBarPauseButton);
+}
+
+
 function nextSong(){
 
+  //NODES OF CURRENT SONGITME AN  IT'S NUMBER.
   var $currentSongItem = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
-  $currentlyPlayingSongElement.html(currentlyPlayingSong);//set current songitemnumber back to its songnumber
+  var currentSongNumber = currentlyPlayingSong;
+  $currentSongItem.html(currentSongNumber);//set current songitemnumber back to its songnumber
+  var newSongNumber;
   
-  if (trackIndex(currentAlbum, currentAlbumSong) >= currentAlbum.songs.length - 1){
-    currentlyPlayingSong = 1;
+  if (currentSongNumber >= currentAlbum.songs.length){
+    newSongNumber = 1;
     currentAlbumSong = currentAlbum.songs[0];
   }
   else{
-    currentlyPlayingSong = trackIndex(currentAlbum, currentAlbumSong) + 1;
-    currentAlbumSong = currentAlbum.songs[currentlyPlayingSong];
+    newSongNumber++;
+    currentAlbumSong = currentAlbum.songs[newSongNumber - 1];
   }
-  $currentSongItem = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
-  $currentSongItem.html(pauseButtonTemplate);
+    
+  var $newSongNumberItem = $(document).find('[data-song-number="' + newSongNumber + '"]');
+  $newSongNumberItem.html(pauseButtonTemplate);
   updatePlayerBarSong(); //updates the player to display a song and gives the player a pause button
 }
 
+
+function nextSong(){
+  
+  //have variable taht stores the current song to change it back to its songNumber. if last, wrap
+  //set currentlyPlayingSong to  trackIndex(currentAlbum, currentSong) + 1 - done in order to updatePlayerBarSong() with new song info, and set the playersongBar to that info
+  //change the newsongNumberItem using find() to pausebutton. 
+  //
+  
+}
 
 //Know what the previous song is. This includes the situation in which the next song is the first song, following the final song in the album (that is, it should "wrap" around).
 //Use the trackIndex() helper function to get the index of the current song and then increment the value of the index.
