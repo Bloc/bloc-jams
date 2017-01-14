@@ -95,8 +95,7 @@ var createSongRow = function(songNumber, songName, songLength) {
         $albumSongList.append($newRow);
      }
  };
- 
-var
+
 
 
 //ALL BUTTON ICONS
@@ -112,7 +111,36 @@ var currentAlbum = null;
 $(document).ready(function(){   
    setCurrentAlbum(albumGEM);
  });
- 
+
+  var trackIndex = function(album, song) {
+     return album.songs.indexOf(song);
+ };
+
+function nextSong(){
+
+  var $currentSongItem = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
+  $currentlyPlayingSongElement.html(currentlyPlayingSong);//set current songitemnumber back to its songnumber
+  
+  if (trackIndex(currentAlbum, currentAlbumSong) >= currentAlbum.songs.length - 1){
+    currentlyPlayingSong = 1;
+    currentAlbumSong = currentAlbum.songs[0];
+  }
+  else{
+    currentlyPlayingSong = trackIndex(currentAlbum, currentAlbumSong) + 1;
+    currentAlbumSong = currentAlbum.songs[currentlyPlayingSong];
+  }
+  $currentSongItem = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
+  $currentSongItem.html(pauseButtonTemplate);
+  updatePlayerBarSong(); //updates the player to display a song and gives the player a pause button
+}
+
+
+//Know what the previous song is. This includes the situation in which the next song is the first song, following the final song in the album (that is, it should "wrap" around).
+//Use the trackIndex() helper function to get the index of the current song and then increment the value of the index.
+//Set a new current song to currentSongFromAlbum.
+//Update the player bar to show the new song.
+//Update the HTML of the previous song's .song-item-number element with a number.
+//Update the HTML of the new song's .song-item-number element with a pause button.
 
  
 
