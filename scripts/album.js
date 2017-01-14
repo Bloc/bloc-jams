@@ -30,9 +30,8 @@ var createSongRow = function(songNumber, songName, songLength) {
           }
      };
   
-  
-function updatePlayerBarSong(){
-  $('.currently-playing .songName').text(currentAlbumSong.title);
+  function updatePlayerBarSong(){
+  $('.currently-playing .song-name').text(currentAlbumSong.title);
   $('.currently-playing .artist-name').text(currentAlbum.artist);
   $('.currently-playing .artist-song-mobile').text(currentAlbumSong.title + " - " + currentAlbum.artist);
   
@@ -72,6 +71,7 @@ function updatePlayerBarSong(){
  };
 
 
+
  var setCurrentAlbum = function(album) {
      currentAlbum = album;
      // #1
@@ -95,8 +95,8 @@ function updatePlayerBarSong(){
         $albumSongList.append($newRow);
      }
  };
-
-
+ 
+var
 
 
 //ALL BUTTON ICONS
