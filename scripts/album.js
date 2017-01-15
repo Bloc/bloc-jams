@@ -25,7 +25,8 @@ var createSongRow = function(songNumber, songName, songLength) {
     var onHover = function(event) {
       var $songItem = $(this).find('.song-item-number');
       var songNumber = parseInt($songItem.attr('data-song-number'));
-      
+             console.log(currentlyPlayingSong, currentAlbumSong, currentAudioSong);
+
           if (songNumber !== currentlyPlayingSong) { ////not same type.
             $songItem.html(playButtonTemplate);
           }
@@ -34,7 +35,8 @@ var createSongRow = function(songNumber, songName, songLength) {
      var offHover = function(event) {
       var $songItem = $(this).find('.song-item-number');
       var songNumber = parseInt($songItem.attr('data-song-number'));
-       
+              console.log(currentlyPlayingSong, currentAlbumSong, currentAudioSong);
+
           if (songNumber !== currentlyPlayingSong) {
             $songItem.html(songNumber);
           }
@@ -64,11 +66,17 @@ var createSongRow = function(songNumber, songName, songLength) {
                 $songItem.html(pauseButtonTemplate);
                 $('.main-controls .play-pause').html(playerBarPauseButton);
                 currentAudioSong.play();
+                 console.log(currentlyPlayingSong, currentAlbumSong, currentAudioSong);
+
             } else {
                 $songItem.html(playButtonTemplate);
                 $('.main-controls .play-pause').html(playerBarPlayButton);
                 currentAudioSong.pause();   
+                     console.log(currentlyPlayingSong, currentAlbumSong, currentAudioSong);
+
             }
+              console.log(currentlyPlayingSong, currentAlbumSong, currentAudioSong);
+
          $('.main-controls .play-pause').html(playerBarPlayButton);
        
      } else if (currentlyPlayingSong !== songNumber) {
