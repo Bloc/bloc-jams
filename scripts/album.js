@@ -50,6 +50,7 @@ var createSongRow = function(songNumber, songName, songLength) {
      if (currentlyPlayingSong === null) {
          $songItem.html(pauseButtonTemplate);
          setSong(songNumber);
+       console.log(currentlyPlayingSong, currentAlbumSong, currentAudioSong);
          currentAudioSong.play();
          updatePlayerBarSong();
        
@@ -209,7 +210,7 @@ function getSongNumberCell(number){
 
 
  $(document).ready(function(){   
-   setCurrentAlbum(albumGEM);
+   setCurrentAlbum(albumPicasso);
     $nextButton.click(nextSong);
     $previousButton.click(previousSong);
  });
