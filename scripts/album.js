@@ -55,22 +55,16 @@ var createSongRow = function(songNumber, songName, songLength) {
          updatePlayerBarSong();
        
      } else if (currentlyPlayingSong === songNumber) {
-         $songItem.html(playButtonTemplate);
-         currentlyPlayingSong = null;
-         currentAlbumSong = null;
-       
-        ////WHY DO WE HAVE TO CHECK IF IT IS PAUSED OR NOT? ISN'T IT USUALLY , wouldn't this only apply to themaincontrol?
+        ////WHY DO WE HAVE TO CHECK IF IT IS PAUSED OR NOT? ISN'T IT USUALLY , wouldn't this only apply to themaincontrol? I think I get it
         if (currentAudioSong.isPaused()) {
                 $songItem.html(pauseButtonTemplate);
                 $('.main-controls .play-pause').html(playerBarPauseButton);
                 currentAudioSong.play();
-            } else {
+            } else {  
                 $songItem.html(playButtonTemplate);
                 $('.main-controls .play-pause').html(playerBarPlayButton);
                 currentAudioSong.pause();   
-            }
-         $('.main-controls .play-pause').html(playerBarPlayButton);
-       
+            }        
      } else if (currentlyPlayingSong !== songNumber) {
        //current
          var currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSong);
