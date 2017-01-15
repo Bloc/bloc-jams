@@ -49,21 +49,19 @@ var createSongRow = function(songNumber, songName, songLength) {
  
      if (currentlyPlayingSong === null) {
          $songItem.html(pauseButtonTemplate);
-         currentlyPlayingSong = songNumber;
-         currentAlbumSong = currentAlbum.songs[songNumber-1];
-        updatePlayerBarSong();
+         setSong(songNumber);
+         updatePlayerBarSong();
      } else if (currentlyPlayingSong === songNumber) {
          $songItem.html(playButtonTemplate);
          currentlyPlayingSong = null;
         currentAlbumSong = null;
          $('.main-controls .play-pause').html(playerBarPlayButton);
      } else if (currentlyPlayingSong !== songNumber) {
-         var currentlyPlayingSongElement = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
+         var currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSong);
          currentlyPlayingSongElement.html(songNumber);
          $songItem.html(pauseButtonTemplate);
-         currentlyPlayingSong = songNumber;
-        currentAlbumSong = currentAlbum.songs[songNumber-1];
-        updatePlayerBarSong();//use data from the currentAlbumSong and currentAlbum to populate .currentlyplaying stuff and update maincontrols.
+         setSong(songNumber);
+         updatePlayerBarSong();//use data from the currentAlbumSong and currentAlbum to populate .currentlyplaying stuff and update maincontrols.
      }
  };
 
@@ -134,19 +132,18 @@ var currentAlbum = null;
 function nextSong(){
 
   //NODES OF CURRENT SONGITME AN  IT'S NUMBER.
-  var $currentSongItem = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
+  var $currentSongItem = getSongNumberCell(currentlyPlayingSong);
   $currentSongItem.html(currentlyPlayingSong);
   
   if (currentlyPlayingSong >= currentAlbum.songs.length){
-    currentlyPlayingSong = 1;
-    currentAlbumSong = currentAlbum.songs[0];
+    setSong(1);
   }
   else{
-    currentlyPlayingSong++;/////does this line convert it to number?
-    currentAlbumSong = currentAlbum.songs[currentlyPlayingSong - 1]; // could replace currentlyPlayingSong  with trackIndex(currentAlbum, currentAlbumSong)
+    setSong(++currentlyPlayingSong);
+    // could replace currentlyPlayingSong  with trackIndex(currentAlbum, currentAlbumSong)
   }
     
-  var $newSongNumberItem = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
+  var $newSongNumberItem = getSongNumberCell(currentlyPlayingSong);
   $newSongNumberItem.html(pauseButtonTemplate);
   updatePlayerBarSong(); //updates the player to display a song and gives the player a pause button
 }
@@ -154,23 +151,32 @@ function nextSong(){
 function previousSong(){
 
   //NODES OF CURRENT SONGITME AN  IT'S NUMBER.
-  var $currentSongItem = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
+  var $currentSongItem = getSongNumberCell(currentlyPlayingSong);
   $currentSongItem.html(currentlyPlayingSong);
   
   if (currentlyPlayingSong <= 1){
-    currentlyPlayingSong = currentAlbum.songs.length;
-    currentAlbumSong = currentAlbum.songs[currentAlbum.songs.length];
+    setSong(currentAlbum.songs.length);
   }
   else{
-    currentlyPlayingSong--;
-    currentAlbumSong = currentAlbum.songs[currentlyPlayingSong - 1]; // could replace currentlyPlayingSong  with trackIndex(currentAlbum, currentAlbumSong)
+    setSong(--currentlyPlayingSong);
+    // could replace currentlyPlayingSong  with trackIndex(currentAlbum, currentAlbumSong)
   }
     
-  var $newSongNumberItem = $(document).find('[data-song-number="' + currentlyPlayingSong + '"]');
+  var $newSongNumberItem = getSongNumberCell(currentlyPlayingSong);
   $newSongNumberItem.html(pauseButtonTemplate);
   updatePlayerBarSong(); //updates the player to display a song and gives the player a pause button
 }
- 
+
+function setSong(songNumber){
+  currentlyPlayingSong = songNumber;
+  currentAlbumSong = currentAlbum.songs[songNumber - 1];
+  
+}
+
+function getSongNumberCell(number){
+    return $(document).find('[data-song-number="' + number + '"]');
+}
+
 
  $(document).ready(function(){   
    setCurrentAlbum(albumGEM);
