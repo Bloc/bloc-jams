@@ -43,6 +43,7 @@ var createSongRow = function(songNumber, songName, songLength) {
      };
   
  
+  
 
    
    var clickHandler = function() {
@@ -124,6 +125,21 @@ var createSongRow = function(songNumber, songName, songLength) {
      }
  };
 
+function togglePlayFromBar(){
+  
+  if(currentAudioSong){
+    if(currentAudioSong.isPaused()){
+      $(this).html(playerBarPauseButton);
+      getSongNumberCell(currentlyPlayingSong).html(pauseButtonTemplate);
+      currentAudioSong.play();
+    }
+    else{
+      $(this).html(playerBarPlayButton);
+      getSongNumberCell(currentlyPlayingSong).html(playButtonTemplate);
+      currentAudioSong.pause();
+    }
+  }
+}
 
 
 //ALL BUTTON ICONS
@@ -133,7 +149,10 @@ var playerBarPauseButton = '<span class="ion-pause"></span>';
 var playerBarPlayButton = '<span class="ion-play"></span>';
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+var $playerBarPlayPause = $('.main-controls .play-pause');
 
+
+//all variables describing the currentsong - needed for code to update each other on user interaction(ex: changing songs)
 var currentlyPlayingSong = null;
 var currentAlbumSong = null;
 var currentAlbum = null;
@@ -216,11 +235,12 @@ function getSongNumberCell(number){
     return $(document).find('[data-song-number="' + number + '"]');
 }
 
-
+//will THIS ENTIRE FUNCTION NOT WORK IF ONLY ONE THING DOESN'T WOKR?
  $(document).ready(function(){   
    setCurrentAlbum(albumPicasso);
     $nextButton.click(nextSong);
     $previousButton.click(previousSong);
+   $playerBarPlayPause.click(togglePlayFromBar);
  });
 
 var setVolume = function(volume){
