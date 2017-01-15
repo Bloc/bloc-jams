@@ -59,14 +59,14 @@ var createSongRow = function(songNumber, songName, songLength) {
          currentAlbumSong = null;
        
         ////WHY DO WE HAVE TO CHECK IF IT IS PAUSED OR NOT? ISN'T IT USUALLY , wouldn't this only apply to themaincontrol?
-        if (currentSoundFile.isPaused()) {
+        if (currentAudioSong.isPaused()) {
                 $songItem.html(pauseButtonTemplate);
                 $('.main-controls .play-pause').html(playerBarPauseButton);
-                currentSoundFile.play();
+                currentAudioSong.play();
             } else {
                 $songItem.html(playButtonTemplate);
                 $('.main-controls .play-pause').html(playerBarPlayButton);
-                currentSoundFile.pause();   
+                currentAudioSong.pause();   
             }
          $('.main-controls .play-pause').html(playerBarPlayButton);
        
@@ -129,7 +129,7 @@ var currentlyPlayingSong = null;
 var currentAlbumSong = null;
 var currentAlbum = null;
 var currentAudioSong = null;
-
+ var currentVolume = 80;
 
 
   var trackIndex = function(album, song) {
@@ -160,9 +160,10 @@ function nextSong(){
     setSong(++currentlyPlayingSong);
     // could replace currentlyPlayingSong  with trackIndex(currentAlbum, currentAlbumSong)
   }
-    
+  
   var $newSongNumberItem = getSongNumberCell(currentlyPlayingSong);
   $newSongNumberItem.html(pauseButtonTemplate);
+  currentAudioSong.play();
   updatePlayerBarSong(); //updates the player to display a song and gives the player a pause button
 }
   
@@ -182,27 +183,25 @@ function previousSong(){
     
   var $newSongNumberItem = getSongNumberCell(currentlyPlayingSong);
   $newSongNumberItem.html(pauseButtonTemplate);
+  currentAudioSong.play();
   updatePlayerBarSong(); //updates the player to display a song and gives the player a pause button
 }
 
 //SETS UP THE DATA NEEDED BY EACH COMPONENT OF BLOCJAMS
-function setSong(songNumber){
+var setSong = function(songNumber) {
   
-  
-   if (currentAudioSong) {
+    if (currentAudioSong) {
          currentAudioSong.stop();
      }
- 
-  currentlyPlayingSong = parseInt(songNumber);
-  currentAlbumSong = currentAlbum.songs[songNumber - 1];
-  
-  //BUILD SONG OBJECT for playing songs
-  currentAudioSong = new buzz.sound(currentAlbum.audioUrl,
-                                    {formats: ['mp3'], //settings
-                                     preload: true
-                                     
-                                    });
-}
+     currentlyPlayingSong = parseInt(songNumber);
+     currentAlbumSong = currentAlbum.songs[songNumber - 1];
+     // #1
+     currentAudioSong = new buzz.sound(currentAlbumSong.audioUrl, {
+         // #2
+         formats: ['mp3'],
+         preload: true
+     });
+ };
 
 function getSongNumberCell(number){
     return $(document).find('[data-song-number="' + number + '"]');
@@ -215,6 +214,10 @@ function getSongNumberCell(number){
     $previousButton.click(previousSong);
  });
 
+var setVolume = function(volume){
+  if(currentAudioSong)
+      currentAudioSong.setVolume(volume);
+}
 
  
  
