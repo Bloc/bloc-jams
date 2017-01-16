@@ -60,7 +60,7 @@ var createSongRow = function(songNumber, songName, songLength) {
          updatePlayerBarSong();
        
      } else if (currentlyPlayingSong === songNumber) {
-        ////WHY DO WE HAVE TO CHECK IF IT IS PAUSED OR NOT? ISN'T IT USUALLY , wouldn't this only apply to themaincontrol? I think I get it
+       
         if (currentAudioSong.isPaused()) {
                 $songItem.html(pauseButtonTemplate);
                 $('.main-controls .play-pause').html(playerBarPauseButton);
@@ -273,8 +273,8 @@ var setupSeekBars = function(){
       });
   });
 }
- //shouldn't I refactor updateSeekPercentage to a function that updates all seek bars visually and audiolly(change the music current time)?
- function updateSongorVolume($currentSeekBar,seekBarFillRatio){
+
+function updateSongorVolume($currentSeekBar,seekBarFillRatio){
       if($($currentSeekBar).parent().hasClass("seek-control")){
         currentTime = seekBarFillRatio * currentAudioSong.getDuration();
         seek(currentTime);
@@ -289,7 +289,6 @@ function filterTimeCode(timeInSeconds){
   var duration = parseFloat(timeInSeconds);
   var minutes = Math.floor(duration / 60);
   var seconds = Math.floor(duration - (60*minutes));
-  console.log(seconds);
   
   if(seconds<10)
         return minutes + ":0" + seconds; 
