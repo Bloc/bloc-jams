@@ -51,6 +51,11 @@ var createSongRow = function(songNumber, songName, songLength) {
          $songItem.html(pauseButtonTemplate);
          setSong(songNumber);
          currentAudioSong.play();
+          var $volumeFill = $('.volume .fill');
+          var $volumeThumb = $('.volume .thumb');
+          $volumeFill.width(currentVolume + '%');
+          $volumeThumb.css({left: currentVolume + '%'});
+
          updateSeekBarWhileSongPlays();
          updatePlayerBarSong();
        
@@ -121,13 +126,15 @@ var playerBarPauseButton = '<span class="ion-pause"></span>';
 var playerBarPlayButton = '<span class="ion-play"></span>';
 var $previousButton = $('.main-controls .previous');
 var $nextButton = $('.main-controls .next');
+var $playerBarPlayPause = $('.main-controls .play-pause');
 
+//FOUNDATIONAL DATA REQUIRED FOR DIFFERENT FUNCTIONALITIES
 var currentlyPlayingSong = null;
 var currentAlbumSong = null;
 var currentAlbum = null;
 var currentAudioSong = null;
  var currentVolume = 80;
-
+var currentTime = null;
 
   var trackIndex = function(album, song) {
      return album.songs.indexOf(song);
@@ -206,6 +213,13 @@ function getSongNumberCell(number){
     return $(document).find('[data-song-number="' + number + '"]');
 }
 
+
+var seek = function(time){
+  if (currentAudioSong){
+    currentAudioSong.setTime(time);
+  }
+}
+
 var setVolume = function(volume){
   if(currentAudioSong)
       currentAudioSong.setVolume(volume);
@@ -226,9 +240,10 @@ var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
     $seekBar.find('.thumb').css({left: percentageString});
  };
 
-//sets up functionality of SEEKBARS.
-//handles events on the SEEKBARS.
+//sets up functionality of SEEKBARS. for SEEKCONTROL & VOLUMECONTROL 
+//handles events on both SEEKBARS - volume and seeksongs.
 var setupSeekBars = function(){
+  //get all seekbars 
   var $seekBars = $('.player-bar .seek-bar');
   
   
@@ -236,17 +251,20 @@ var setupSeekBars = function(){
     var offsetX = event.pageX - $(this).offset().left;
     var barWidth = $(this).width();  
     var seekBarFillRatio = offsetX/barWidth;
+    updateSongorVolume($(this),seekBarFillRatio);
     updateSeekPercentage($(this), seekBarFillRatio);
   });
   
-  
+  //add mousedown events to all thumbs of all seekbars
   $seekBars.find('.thumb').mousedown(function(event){
     var $currentSeekBar = $(this).parent();
     
+    //add mousemove event to thumb elements of the document.
     $(document).bind('mousemove.thumb', function(event){
        var offsetX = event.pageX - $currentSeekBar.offset().left;
       var barWidth = $currentSeekBar.width();  
       var seekBarFillRatio = offsetX/barWidth;
+      updateSongorVolume($currentSeekBar,seekBarFillRatio);
       updateSeekPercentage($currentSeekBar, seekBarFillRatio);
     });
              
@@ -256,6 +274,20 @@ var setupSeekBars = function(){
       });
   });
 }
+ //shouldn't I refactor updateSeekPercentage to a function that updates all seek bars visually and audiolly(change the music current time)?
+ function updateSongorVolume($currentSeekBar,seekBarFillRatio){
+      if($($currentSeekBar).parent().hasClass("seek-control")){
+        currentTime = seekBarFillRatio * currentAudioSong.getDuration();
+        seek(currentTime);
+      }
+      else{
+        currentVolume = seekBarFillRatio * 100;
+        setVolume(currentVolume);
+      }
+ }
+    
+
+
 
 //will update seekbar while song plays
 var updateSeekBarWhileSongPlays = function(){
@@ -272,12 +304,32 @@ var updateSeekBarWhileSongPlays = function(){
 }
 
 
+
+
+function togglePlayFromBar(){
+  
+  if(currentAudioSong){
+    if(currentAudioSong.isPaused()){
+      $(this).html(playerBarPauseButton);
+      getSongNumberCell(currentlyPlayingSong).html(pauseButtonTemplate);
+      currentAudioSong.play();
+    }
+    else{
+      $(this).html(playerBarPlayButton);
+      getSongNumberCell(currentlyPlayingSong).html(playButtonTemplate);
+      currentAudioSong.pause();
+    }
+  }
+}
+
+
  
 //ADD ANYTHING THAT REQUIRES A MANIPULABLE DOM STRUCTURE
  $(document).ready(function(){   
     setCurrentAlbum(albumPicasso);
     $nextButton.click(nextSong);
     $previousButton.click(previousSong);
+    $playerBarPlayPause.click(togglePlayFromBar);
     setupSeekBars(); 
  });
 
