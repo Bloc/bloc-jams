@@ -4,7 +4,7 @@ var createSongRow = function(songNumber, songName, songLength) {
      //add song number data to the element
       + '  <td class="song-item-number" data-song-number="' + songNumber+ '" >' + songNumber + '</td>'
       + '  <td class="song-item-title">' + songName + '</td>'
-      + '  <td class="song-item-duration">' + songLength + '</td>'
+      + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
       + '</tr>'
       ;
    
@@ -92,7 +92,6 @@ var createSongRow = function(songNumber, songName, songLength) {
  };
 
 
-
  var setCurrentAlbum = function(album) {
      currentAlbum = album;
      // #1
@@ -146,7 +145,7 @@ var currentTime = null;
   $('.currently-playing .song-name').text(currentAlbumSong.title);
   $('.currently-playing .artist-name').text(currentAlbum.artist);
   $('.currently-playing .artist-song-mobile').text(currentAlbumSong.title + " - " + currentAlbum.artist);
-  
+  setTotalTimeInPlayerBar(currentAlbumSong.duration);
   $('.main-controls .play-pause').html(playerBarPauseButton);
 }
 
@@ -285,6 +284,18 @@ var setupSeekBars = function(){
         setVolume(currentVolume);
       }
  }
+
+function filterTimeCode(timeInSeconds){
+  var duration = parseFloat(timeInSeconds);
+  var minutes = Math.floor(duration / 60);
+  var seconds = Math.floor(duration - (60*minutes));
+  console.log(seconds);
+  
+  if(seconds<10)
+        return minutes + ":0" + seconds; 
+  
+  return minutes + ":" + seconds;
+}
     
 
 
@@ -296,7 +307,7 @@ var updateSeekBarWhileSongPlays = function(){
     currentAudioSong.bind('timeupdate', function(event){
       var seekBarFillRatio = this.getTime()/this.getDuration();
       var $seekBar = $('.seek-control .seek-bar');
-
+      setCurrentTimePlayerBar(this.getTime());
           updateSeekPercentage($seekBar, seekBarFillRatio);
     });
     
@@ -323,6 +334,13 @@ function togglePlayFromBar(){
 }
 
 
+function setCurrentTimePlayerBar(currentTime){
+  $('.current-time').html(filterTimeCode(currentTime));
+}
+
+function setTotalTimeInPlayerBar(totalTime){
+  $('.total-time').html(filterTimeCode(totalTime));
+}
  
 //ADD ANYTHING THAT REQUIRES A MANIPULABLE DOM STRUCTURE
  $(document).ready(function(){   
