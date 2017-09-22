@@ -116,38 +116,6 @@ var createSongRow = function(songNumber, songName, songLength) {
      }
  };
 
-// to attach an event in IE6
-node.attachEvent("click", function () {})
-
-// to attach an event in netscape navigator (mozilla)
-node.addEventListener("click", function(){}, false);
-
-$(node).click();
-
-/*
-function addEvent(id, type, handler, capture) {
-  // this === window
-  var node =  = {
-    name: "Matt"
-  };
-
-  $(node).click(function () {
-     // this === $(node) or this === node
-  });
-
-  node.addEventListener("click", function () {
-    // this === node
-    console.log(this.getAttribute("id")); // "someNode"
-  }, capture);
-}
-
-addEvent(document.getElementById("someNode"), "click", function () {
-  // this === context
-  console.log(this.getAttribute("id")); // someNode
-}, false);
-*/
-
-
 
 //ALL BUTTON ICONS
 var playButtonTemplate = '<a class="album-song-button"><span class="ion-play"></span></a>';
