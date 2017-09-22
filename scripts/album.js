@@ -7,46 +7,46 @@ var createSongRow = function(songNumber, songName, songLength) {
       + '  <td class="song-item-duration">' + filterTimeCode(songLength) + '</td>'
       + '</tr>'
       ;
-   
+
    //add event listeners to template just right after it is created.
      var $row = $(template);
-    
-  
+
+
 //  Why we need to parseInt - becasue of how strictComparison's works: it checks types
-  
+
   ///first Hover - currentlyPlayingSong is an object (null);
   ///click handler - currentlyplayingSong is a string ( here currentlyPLayingSong  is set by songNumber(which is obtained by .attr --> string type).
-  ///nextSong() = curretnlypLyaingSong is a number 
+  ///nextSong() = curretnlypLyaingSong is a number
   ///strings and nuumbers dont' match, thus it will always change offhover
-  
+
   //Solution: by changing all songNumbers to in a number, we change all instances of currentPlayingSong also to number
 
-  
+
     var onHover = function(event) {
       var $songItem = $(this).find('.song-item-number');
       var songNumber = parseInt($songItem.attr('data-song-number'));
-      
+
           if (songNumber !== currentlyPlayingSong) { ////not same type.
             $songItem.html(playButtonTemplate);
           }
      };
-   
+
      var offHover = function(event) {
       var $songItem = $(this).find('.song-item-number');
       var songNumber = parseInt($songItem.attr('data-song-number'));
-       
+
           if (songNumber !== currentlyPlayingSong) {
             $songItem.html(songNumber);
           }
      };
-  
- 
 
-   
+
+
+
    var clickHandler = function() {
-     var $songItem = $(this).find('.song-item-number');
-     var songNumber = parseInt($songItem.attr('data-song-number'));
- 
+     var $songItem = this.querySelector('.song-item-number');
+     var songNumber = parseInt($songItem.getAttribute('data-song-number'));
+
      if (currentlyPlayingSong === null) {
          $songItem.html(pauseButtonTemplate);
          setSong(songNumber);
@@ -58,24 +58,24 @@ var createSongRow = function(songNumber, songName, songLength) {
 
          updateSeekBarWhileSongPlays();
          updatePlayerBarSong();
-       
+
      } else if (currentlyPlayingSong === songNumber) {
-       
+
         if (currentAudioSong.isPaused()) {
                 $songItem.html(pauseButtonTemplate);
                 $('.main-controls .play-pause').html(playerBarPauseButton);
                 currentAudioSong.play();
                 updateSeekBarWhileSongPlays();
-            } else {  
+            } else {
                 $songItem.html(playButtonTemplate);
                 $('.main-controls .play-pause').html(playerBarPlayButton);
-                currentAudioSong.pause();   
-            }        
+                currentAudioSong.pause();
+            }
      } else if (currentlyPlayingSong !== songNumber) {
        //current
          var currentlyPlayingSongElement = getSongNumberCell(currentlyPlayingSong);
          currentlyPlayingSongElement.html(currentlyPlayingSong); /////LOOK OVER THIS LINE IF ANY ERRORS
-       
+
        //new
          setSong(songNumber);
         $songItem.html(pauseButtonTemplate);
@@ -100,7 +100,7 @@ var createSongRow = function(songNumber, songName, songLength) {
      var $albumReleaseInfo = $('.album-view-release-info');
      var $albumImage = $('.album-cover-art');
      var $albumSongList = $('.album-view-song-list');
- 
+
      // #2
      $albumTitle.text(album.title);
      $albumArtist.text(album.artist);
@@ -108,13 +108,44 @@ var createSongRow = function(songNumber, songName, songLength) {
      $albumImage.attr('src', album.albumArtUrl);
      // #3
      $albumSongList.empty();
- 
+
      // #4
      for (var i = 0; i < album.songs.length; i++) {
        var $newRow = createSongRow(i + 1, album.songs[i].title, album.songs[i].duration); //indicate jQuery element.
         $albumSongList.append($newRow);
      }
  };
+
+// to attach an event in IE6
+node.attachEvent("click", function () {})
+
+// to attach an event in netscape navigator (mozilla)
+node.addEventListener("click", function(){}, false);
+
+$(node).click();
+
+/*
+function addEvent(id, type, handler, capture) {
+  // this === window
+  var node =  = {
+    name: "Matt"
+  };
+
+  $(node).click(function () {
+     // this === $(node) or this === node
+  });
+
+  node.addEventListener("click", function () {
+    // this === node
+    console.log(this.getAttribute("id")); // "someNode"
+  }, capture);
+}
+
+addEvent(document.getElementById("someNode"), "click", function () {
+  // this === context
+  console.log(this.getAttribute("id")); // someNode
+}, false);
+*/
 
 
 
@@ -155,7 +186,7 @@ function nextSong(){
   //NODES OF CURRENT SONGITME AN  IT'S NUMBER.
   var $currentSongItem = getSongNumberCell(currentlyPlayingSong);
   $currentSongItem.html(currentlyPlayingSong);
-  
+
   if (currentlyPlayingSong >= currentAlbum.songs.length){
     setSong(1);
   }
@@ -163,20 +194,20 @@ function nextSong(){
     setSong(++currentlyPlayingSong);
     // could replace currentlyPlayingSong  with trackIndex(currentAlbum, currentAlbumSong)
   }
-  
+
   var $newSongNumberItem = getSongNumberCell(currentlyPlayingSong);
   $newSongNumberItem.html(pauseButtonTemplate);
   currentAudioSong.play();
   updateSeekBarWhileSongPlays();
   updatePlayerBarSong(); //updates the player to display a song and gives the player a pause button
 }
-  
+
 function previousSong(){
 
   //NODES OF CURRENT SONGITME AN  IT'S NUMBER.
   var $currentSongItem = getSongNumberCell(currentlyPlayingSong);
   $currentSongItem.html(currentlyPlayingSong);
-  
+
   if (currentlyPlayingSong <= 1){
     setSong(currentAlbum.songs.length );
   }
@@ -184,7 +215,7 @@ function previousSong(){
     setSong(--currentlyPlayingSong);
     // could replace currentlyPlayingSong  with trackIndex(currentAlbum, currentAlbumSong)
   }
-    
+
   var $newSongNumberItem = getSongNumberCell(currentlyPlayingSong);
   $newSongNumberItem.html(pauseButtonTemplate);
   currentAudioSong.play();
@@ -194,7 +225,7 @@ function previousSong(){
 
 //SETS UP THE DATA NEEDED BY EACH COMPONENT OF BLOCJAMS
 var setSong = function(songNumber) {
-  
+
     if (currentAudioSong) {
          currentAudioSong.stop();
      }
@@ -225,48 +256,48 @@ var setVolume = function(volume){
 }
 
 var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
-  
+
   //obtain value to constraint between 0 and 100
     var offsetXPercent = seekBarFillRatio * 100;
-  
+
     // #1 : make sure it is between 0 and 100
     offsetXPercent = Math.max(0, offsetXPercent);
     offsetXPercent = Math.min(100, offsetXPercent);
- 
+
     // #2
     var percentageString = offsetXPercent + '%';
     $seekBar.find('.fill').width(percentageString);
     $seekBar.find('.thumb').css({left: percentageString});
  };
 
-//sets up functionality of SEEKBARS. for SEEKCONTROL & VOLUMECONTROL 
+//sets up functionality of SEEKBARS. for SEEKCONTROL & VOLUMECONTROL
 //handles events on both SEEKBARS - volume and seeksongs.
 var setupSeekBars = function(){
-  //get all seekbars 
+  //get all seekbars
   var $seekBars = $('.player-bar .seek-bar');
-  
-  
+
+
   $seekBars.click(function(event){
     var offsetX = event.pageX - $(this).offset().left;
-    var barWidth = $(this).width();  
+    var barWidth = $(this).width();
     var seekBarFillRatio = offsetX/barWidth;
     updateSongorVolume($(this),seekBarFillRatio);
     updateSeekPercentage($(this), seekBarFillRatio);
   });
-  
+
   //add mousedown events to all thumbs of all seekbars
   $seekBars.find('.thumb').mousedown(function(event){
     var $currentSeekBar = $(this).parent();
-    
+
     //add mousemove event to thumb elements of the document.
     $(document).bind('mousemove.thumb', function(event){
        var offsetX = event.pageX - $currentSeekBar.offset().left;
-      var barWidth = $currentSeekBar.width();  
+      var barWidth = $currentSeekBar.width();
       var seekBarFillRatio = offsetX/barWidth;
       updateSongorVolume($currentSeekBar,seekBarFillRatio);
       updateSeekPercentage($currentSeekBar, seekBarFillRatio);
     });
-             
+
     $(document).bind('mouseup.thumb', function(){
       $(document).unbind('mousemove.thumb');
       $(document).unbind('mouseup.thumb');
@@ -289,19 +320,19 @@ function filterTimeCode(timeInSeconds){
   var duration = parseFloat(timeInSeconds);
   var minutes = Math.floor(duration / 60);
   var seconds = Math.floor(duration - (60*minutes));
-  
+
   if(seconds<10)
-        return minutes + ":0" + seconds; 
-  
+        return minutes + ":0" + seconds;
+
   return minutes + ":" + seconds;
 }
-    
+
 
 
 
 //will update seekbar while song plays
 var updateSeekBarWhileSongPlays = function(){
-  
+
   if(currentAudioSong){
     currentAudioSong.bind('timeupdate', function(event){
       var seekBarFillRatio = this.getTime()/this.getDuration();
@@ -309,7 +340,7 @@ var updateSeekBarWhileSongPlays = function(){
       setCurrentTimePlayerBar(this.getTime());
           updateSeekPercentage($seekBar, seekBarFillRatio);
     });
-    
+
   }
 }
 
@@ -317,7 +348,7 @@ var updateSeekBarWhileSongPlays = function(){
 
 
 function togglePlayFromBar(){
-  
+
   if(currentAudioSong){
     if(currentAudioSong.isPaused()){
       $(this).html(playerBarPauseButton);
@@ -340,18 +371,18 @@ function setCurrentTimePlayerBar(currentTime){
 function setTotalTimeInPlayerBar(totalTime){
   $('.total-time').html(filterTimeCode(totalTime));
 }
- 
+
 //ADD ANYTHING THAT REQUIRES A MANIPULABLE DOM STRUCTURE
- $(document).ready(function(){   
+ $(document).ready(function(){
     setCurrentAlbum(albumPicasso);
     $nextButton.click(nextSong);
     $previousButton.click(previousSong);
     $playerBarPlayPause.click(togglePlayFromBar);
-    setupSeekBars(); 
+    setupSeekBars();
  });
 
- 
- 
+
+
 // //FIGURE OUT HOW TO CHECK IF THE BUTOTN HAS NO TARGET CLASSED PARENT.
 //var findParentByClassName = function(element, targetClass) {
 //    if (element) {
@@ -364,4 +395,4 @@ function setTotalTimeInPlayerBar(totalTime){
 //};
 //
 //
-// 
+//
